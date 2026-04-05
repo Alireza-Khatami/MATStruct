@@ -1,6 +1,6 @@
 # ###############################################################################
 cmake_minimum_required(VERSION 3.16)
-set(CMAKE_CUDA_ARCHITECTURES 61 75)
+set(CMAKE_CUDA_ARCHITECTURES 80)
 project(VolumeVoronoiGPU LANGUAGES CXX CUDA)
 
 # ###############################################################################
@@ -43,6 +43,7 @@ option(AUTO_DOWNLOAD "Auto download dependencies" ON)
 # enable GPU for libmat
 option(LIBMAT_IS_USE_GPU    "Enable GPU for RPD" ON)
 option(LIBMAT_IS_BUILD_TEST "Build tests, either CXX or CUDA" OFF)
+option(MATSTRUCT_WITH_VISUALIZATION "Enable Polyscope visualization" ON)
 include(matstruct_dependencies)
 add_subdirectory(extern/BGAL)
 add_subdirectory(src/knn)
@@ -73,6 +74,9 @@ target_compile_options(${PROJECT_NAME} PRIVATE $<$<COMPILE_LANGUAGE:CUDA>:
     >)
 # target_compile_features(${PROJECT_NAME} PUBLIC cuda_std_17)
 target_compile_definitions(${PROJECT_NAME} PUBLIC -Dgeogram_EXPORTS)
+if(MATSTRUCT_WITH_VISUALIZATION)
+    target_compile_definitions(${PROJECT_NAME} PUBLIC MATSTRUCT_WITH_VISUALIZATION)
+endif()
 
 # add common_headers include
 target_include_directories(${PROJECT_NAME} PUBLIC
@@ -100,7 +104,6 @@ target_link_libraries(${PROJECT_NAME}
     #### extern lib
     general cuda
     general cublas
-    optimized polyscope
     optimized geogram
     optimized ZLIB::ZLIB
     optimized CGAL::CGAL
@@ -108,6 +111,9 @@ target_link_libraries(${PROJECT_NAME}
     optimized CLI11::CLI11
 )
 target_link_libraries(${PROJECT_NAME} general ${CUDA_LIBRARIES})
+if(MATSTRUCT_WITH_VISUALIZATION)
+    target_link_libraries(${PROJECT_NAME} optimized polyscope)
+endif()
 # add common headers
 target_include_directories(${PROJECT_NAME} PUBLIC 
     ${EXTERNAL_DIR}/libmat/include
