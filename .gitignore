@@ -1,8 +1,9 @@
+build/
 *build*/*
 extern/polyscope*
 extern/.*
 extern/mat_modules*
-extern/libmat*
+# extern/libmat tracked intentionally
 extern/geogram*
 extern/cli11*
 src/kd_merge/*build*
@@ -13,3 +14,6 @@ out*/*
 script/*record.*
 script/*.ini
 logs/*
+*.ini
+*.csv
+test.sh

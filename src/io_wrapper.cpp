@@ -232,7 +232,7 @@ bool export_mesh_obj(const std::string obj_file_path,
 // 2. T is either Vector3 or Vector4
 // 3. if face_ids is given, then assign color based on the id
 template <typename T>
-bool export_mesh_obj(const std::string folder_name, const std::string& filename,
+void export_mesh_obj(const std::string folder_name, const std::string& filename,
                      const std::vector<T>& vertices,
                      const std::vector<aint2>& edges,
                      const std::vector<aint3>& faces,
@@ -240,7 +240,7 @@ bool export_mesh_obj(const std::string folder_name, const std::string& filename,
   create_dir(folder_name);
   std::string ma_name_full =
       folder_name + filename + "_" + get_timestamp() + ".obj";
-  export_mesh_obj(ma_name_full, vertices, edges, faces, face_flags);
+  bool is_exported = export_mesh_obj(ma_name_full, vertices, edges, faces, face_flags);
 }
 
 // NOTE: obj file is 1-based index!!!

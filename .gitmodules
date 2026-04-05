@@ -1,0 +1,3 @@
+[submodule "extern/libmat"]
+	path = extern/libmat
+	url = https://github.com/ningnawang/libmat

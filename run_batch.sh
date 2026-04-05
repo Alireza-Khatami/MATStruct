@@ -1,10 +1,16 @@
 #!/bin/bash
 
+module load cuda/11.7.0
+
+GCC9=/opt/ohpc/pub/compiler/gcc/9.4.0/bin
+export PATH=$GCC9:$PATH
+
 WORKSPACE_DIR="$(cd "$(dirname "$0")" && pwd)"
+export LD_LIBRARY_PATH="$WORKSPACE_DIR/build/lib:/opt/ohpc/pub/unpackaged/apps/cuda/11.7.0/targets/x86_64-linux/lib:$LD_LIBRARY_PATH"
 BINARY="$WORKSPACE_DIR/build/bin/VolumeVoronoiGPU"
-INPUT_BASE="/mnt/d/datasets/abc_full_10k/ABC_input(use scaled_sf.obj)"
-OUTPUT_DIR="/mnt/c/Users/alirz/Projects/Graphics/QMAT_old working version  exe file/qmat_x64/qmat/output"
-LOG_DIR="$WORKSPACE_DIR/logs"
+INPUT_BASE="/groups/xguo/axk230084/experiments/MATStruct/input"
+OUTPUT_DIR="/groups/xguo/axk230084/experiments/MATStruct/output"
+LOG_DIR="$OUTPUT_DIR/logs"
 SUMMARY_FILE="$LOG_DIR/summary.txt"
 TIMEOUT=600
 

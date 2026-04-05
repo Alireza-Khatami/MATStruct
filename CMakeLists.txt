@@ -1,6 +1,6 @@
 # ###############################################################################
 cmake_minimum_required(VERSION 3.16)
-set(CMAKE_CUDA_ARCHITECTURES 61 75)
+set(CMAKE_CUDA_ARCHITECTURES 80)
 project(VolumeVoronoiGPU LANGUAGES CXX CUDA)
 
 # ###############################################################################
